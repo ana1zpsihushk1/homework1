@@ -1,0 +1,22 @@
+name: Pull Request Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Python files
+        run: python -m compileall .
+
+      - name: Check JSON files
+        run: |
+          python -m json.tool pupupu.json > /dev/null
+          python -m json.tool simple.json > /dev/null
